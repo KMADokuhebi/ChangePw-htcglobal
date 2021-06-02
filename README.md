@@ -6,4 +6,4 @@
 ---
 
 ## Build static file
-> docker exec -it docker-django_web_1 python manage.py collectstatic --noinput
+> docker exec -it changepw-htcglobal_web_1 python manage.py collectstatic --noinput
