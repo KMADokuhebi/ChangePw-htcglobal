@@ -146,7 +146,8 @@ def ChangePw_AD(userAD, passAD, new_passAD):
 
 
 def ChangPw(request):
-    if request.session.get('name'):
+    if request.session.get('username'):
+        # del request.session['username']
         if request.method == 'POST':
             # try:
             # lay opt tu ng nhap
@@ -180,8 +181,8 @@ def ChangPw(request):
                 try:
                     if ChangePw_AD(userAD, passAD, newpassAD) == True:
                         # delete_session(request)
-                        del request.session['name']
-                        del request.session['password']
+                        del request.session['username']
+                        del request.session['passw']
                         #  lấy data tu user
                         numbertotal = total.objects.get(usernameAD=userAD)
                         number = numbertotal.totals
@@ -239,6 +240,7 @@ def check_input_user(username):
 
 
 def Index(request):
+
     if request.method == 'POST':
         # get user pass
         userAD = request.POST["username"]
@@ -264,8 +266,8 @@ def Index(request):
 
         
             # create_session(request,userAD,passAD)
-            request.session['name'] = userAD
-            request.session['password'] = passAD
+            request.session['username'] = userAD
+            request.session['passw'] = passAD
 
             tokenAD = make_token()
             # lưu token
@@ -292,6 +294,10 @@ def test(request):
     # x.save()
     # y = total.objects.get(usernameAD='test')
     # x=y[0]
+    request.session['username'] = 'userAD'
+    request.session['passw'] = 'passAD'
+    # del request.session['name']
+    # del request.session['password']
     x = 'bernard_mai@htcglobal.com.vn'
     sample_instance = total.objects.get(usernameAD=x)
     # sample_instance.totals = 3
