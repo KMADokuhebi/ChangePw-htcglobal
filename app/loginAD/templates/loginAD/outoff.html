@@ -32,11 +32,20 @@
             <div class="wrap-login100">
 
                 <div class="login100-pic js-tilt" data-tilt>
-                   
+                    <img src="{% static 'images/img-01.png' %}" alt="IMG">
                     <span class="login100-form-title">
-                        Your account is qua luot doi pass
+                        
                     </span>
                 </div>
+                <form class="login100-form validate-form" >
+					{% csrf_token %}
+					<span class="login100-form-title">
+						Your account has exceeded the number of password changes
+                        pls contact Admin
+					</span>
+
+					
+				</form>
 
 
 

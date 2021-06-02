@@ -34,9 +34,17 @@
                 <div class="login100-pic js-tilt" data-tilt>
                     <img src="{% static 'images/img-01.png' %}" alt="IMG">
                     <span class="login100-form-title">
-                        Your password is update
+                        
                     </span>
                 </div>
+                <form class="login100-form validate-form" >
+					{% csrf_token %}
+					<span class="login100-form-title">
+						Your password is update
+					</span>
+
+					
+				</form>
 
 
 

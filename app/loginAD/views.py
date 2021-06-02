@@ -1,5 +1,5 @@
 
-from django.http.response import  HttpResponseRedirect
+from django.http.response import  HttpResponse, HttpResponseRedirect
 from django.http import Http404, HttpResponseRedirect
 from webtest.settings import TEMPLATES
 from django.shortcuts import redirect, render
@@ -182,11 +182,13 @@ def ChangPw(request):
                         # delete_session(request)
                         del request.session['name']
                         del request.session['password']
-
-                        # numbertotal = total.objects.get(usernameAD=userAD)
-                        # numbertotals = numbertotal + 1 
-                        # y = total(usernameAD=userAD, totals=numbertotals)
-                        # y.save()
+                        #  lấy data tu user
+                        numbertotal = total.objects.get(usernameAD=userAD)
+                        number = numbertotal.totals
+                        
+                        numbertotal.totals = number + 1
+                        
+                        numbertotal.save()
 
 
                         deleteAllDB()
@@ -246,18 +248,19 @@ def Index(request):
         c = connect(userAD, passAD)
         
         if c.bind() == True:
-            # # check so lan da doi pass
-            # try:
-            #     # da tung dang nhap thi
-            #     numbertotal = total.objects.get(usernameAD=userAD)
-            #     if numbertotal == 4:
-            #         return render(request, 'loginAD/outoff.html') 
-            #     # numbertotal = total.objects.get(usernameAD=userAD)
+            # check so lan da doi pass
+            try:
+                # da tung dang nhap thi
+                numbertotal = total.objects.get(usernameAD=userAD)
+                number = numbertotal.totals
+                if  number > 3:
+                    return render(request, 'loginAD/outoff.html') 
+                # numbertotal = total.objects.get(usernameAD=userAD)
 
-            # except :
-            #     # neu chua bao gio dang nhap thi
-            #     y = total(usernameAD=userAD, totals=1)
-            #     y.save()
+            except :
+                # neu chua bao gio dang nhap thi
+                y = total(usernameAD=userAD, totals=1)
+                y.save()
 
         
             # create_session(request,userAD,passAD)
@@ -283,3 +286,20 @@ def Index(request):
             return render(request, 'loginAD/404.html')
     return render(request, 'loginAD/login.html')
  
+
+def test(request):
+    # x= total(usernameAD='test1',totals=2)
+    # x.save()
+    # y = total.objects.get(usernameAD='test')
+    # x=y[0]
+    x = 'bernard_mai@htcglobal.com.vn'
+    sample_instance = total.objects.get(usernameAD=x)
+    # sample_instance.totals = 3
+    # sample_instance.save()
+    value_of_name = sample_instance.totals
+    if value_of_name > 3 :
+        sample_instance.totals = 0
+        sample_instance.save()
+        value_of_name = sample_instance.totals
+        return HttpResponse('ok ',value_of_name)
+    return HttpResponse(value_of_name)

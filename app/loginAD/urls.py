@@ -7,7 +7,7 @@ urlpatterns = [
 
     path(r'', views.Index, name="index"),
     path(r'authen/', views.ChangPw, name="ChangPw"),
-    # path('test/', views.test),
+    path('test/', views.test,name="test"),
     # path('deletecookie/', views.access_session),
     # path('deletesession/', views.delete_session),
 
